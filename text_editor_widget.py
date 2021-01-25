@@ -43,14 +43,18 @@ T = Text(root,yscrollcommand=scrollbar.set,height = 10, width = 250,font=('Rockw
 # Create an Exit button. 
 b2 = Button(root, text = "Exit",fg='red', command = root.destroy)  
 
+#toobar creation
+toolbar_frame=Frame(root)
+toolbar_frame.pack(fill=X) 
+
 
 #bold button
-bold_button=Button(root,text='Bold',command=bold_it)
-bold_button.pack()
+bold_button=Button(toolbar_frame,text='Bold',command=bold_it)
+bold_button.grid(row=0,column=0,padx=5,sticky=W)
 
 #italics_button
-italics_button=Button(root,text='Italics',command=itatics_it)
-italics_button.pack()
+italics_button=Button(toolbar_frame,text='Italics',command=itatics_it)
+italics_button.grid(row=0,column=1,padx=5)
 
 
 scrollbar.pack(side=RIGHT,fill=Y)
@@ -60,3 +64,8 @@ b2.pack()
 
 
 root.mainloop()
+
+    
+
+
+
