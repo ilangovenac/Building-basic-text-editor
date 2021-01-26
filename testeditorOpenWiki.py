@@ -2,26 +2,22 @@ from tkinter import *
 from tkinter import font
 from tkinter import filedialog
 import requests
-import bs4 as BeautifulSoup
+from bs4 import BeautifulSoup
+import urllib.request
 
 root = Tk()
 
-#wikitionary function button
-def wikitionary():
-    #word=T.get('sel.first','sel.last')
-    url='https://en.wiktionary.org/wiki/'+'word'#https://en.wiktionary.org/wiki/chair
-    data=requests.get(url)
-    soup = BeautifulSoup(data.content, 'html.parser')
-    allLinks = soup.find(id="bodyContent").find_all("ol")
+#WordMeaning function button
+def WordMeaning():
+    word=T.get('sel.first','sel.last')
+    #word=input('Enter a word to find meaning: ')
+    url = "https://www.vocabulary.com/dictionary/" + word
+    htmlfile = urllib.request.urlopen(url)
+    soup = BeautifulSoup(htmlfile, 'lxml')
 
-    for link in allLinks:
-        print(link)
-    
-    #print(result)
-    #result_text=result.string
-    #result_text.strip()
-    #print('Wikitionary result: ',result_text)
-
+    soup1 = soup.find(class_="short")
+    soup1 = soup1.get_text()
+    print('Meaning of given word:\n',soup1)
 
 #new_file definition
 #def new_file():
@@ -113,7 +109,7 @@ openfile_button=Button(toolbar_frame,text='OpenFile',command=open_file)
 openfile_button.grid(row=0,column=2,padx=5)
 
 #Wikibutton
-wikibutton=Button(widgettoolbar_frame,text="Wikitionary",command=wikitionary)
+wikibutton=Button(widgettoolbar_frame,text="WordMeaning",command=WordMeaning)
 wikibutton.grid(row=0,column=3,padx=5)
 
 scrollbar.pack(side=RIGHT,fill=Y)
@@ -130,22 +126,7 @@ root.mainloop()
 
 
 
-#####################
-#from thenmozhi
-#import requests
-#import bs4 as bs
-#import string
-#word='chair'
-#url='https://en.wiktionary.org/wiki/'+'chair'#https://en.wiktionary.org/wiki/chair
-#data=requests.get(url)
-#soup = bs.BeautifulSoup(data.content, 'html.parser')
-#result=soup.find_all("p")
-#text= ''
-#for para in result:
-#    text += para.text
-#    print(text)
 
-#############################
 
 
 
